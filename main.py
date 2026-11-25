@@ -7,6 +7,8 @@ a shopper, a self-checkout machine, and an accusation nobody deserved.
 """
 import os
 
+MAX_CHARS = 400
+
 RANT = (
     "The self-checkout screamed UNEXPECTED ITEM IN THE BAGGING AREA at rice "
     "I had already scanned, weighed and apologised to. I stood there, hands "
@@ -18,9 +20,10 @@ RANT = (
 
 
 def main():
-    # Exactly one text: no trailing newline, no extra whitespace.
+    # Exactly one text: no trailing newline, no extra whitespace, one line.
     text = RANT.strip()
-    assert 1 <= len(text) <= 400, f"rant is {len(text)} chars"
+    assert "\n" not in text, "rant must be a single line"
+    assert 1 <= len(text) <= MAX_CHARS, f"rant is {len(text)} chars"
     outdir = "/output"
     os.makedirs(outdir, exist_ok=True)
     with open(os.path.join(outdir, "entry.txt"), "w", encoding="utf-8") as f:
